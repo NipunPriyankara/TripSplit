@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192" width="192" height="192">
+  <defs>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981" />
+      <stop offset="100%" stop-color="#047857" />
+    </linearGradient>
+  </defs>
+  <rect width="192" height="192" rx="42" fill="url(#grad)" />
+  <g fill="none" stroke="#ffffff" stroke-width="12" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Plane / trip symbol -->
+    <path d="M52 108 L140 60 L108 140 L92 112 Z" />
+    <path d="M92 112 L140 60" />
+    <!-- Split coin / group symbol -->
+    <circle cx="68" cy="68" r="14" fill="#ffffff" fill-opacity="0.9" stroke="none" />
+    <circle cx="124" cy="124" r="14" fill="#ffffff" fill-opacity="0.9" stroke="none" />
+  </g>
+</svg>

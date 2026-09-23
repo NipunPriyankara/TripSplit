@@ -1,0 +1,17 @@
+{
+  "name": "group-trip-expense-splitter",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Full-Stack Group Trip Expense Splitter PWA with offline-first synchronization and minimized settlement engine",
+  "scripts": {
+    "server": "npm run dev --prefix server",
+    "client": "npm run dev --prefix client",
+    "test": "npm test --prefix server",
+    "build:server": "npm run build --prefix server",
+    "build:client": "npm run build --prefix client",
+    "build": "npm run build:server && npm run build:client"
+  },
+  "keywords": ["pwa", "expense-splitter", "offline-first", "dexie", "sqlite", "react", "tailwind"],
+  "author": "",
+  "license": "ISC"
+}
