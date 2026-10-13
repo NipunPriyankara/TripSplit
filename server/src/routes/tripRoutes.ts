@@ -14,6 +14,7 @@ router.use(authenticateToken);
 const CreateTripSchema = z.object({
   name: z.string().min(1, 'Trip name is required'),
   description: z.string().optional().nullable(),
+  event_type: z.string().optional().default('trip'),
   start_date: z.string().optional().nullable(),
   end_date: z.string().optional().nullable(),
   currency: z.string().min(1).default('LKR'),
@@ -55,15 +56,15 @@ router.post('/', (req: AuthenticatedRequest, res: Response): void => {
       return;
     }
 
-    const { name, description, start_date, end_date, currency, cover_image } = parse.data;
+    const { name, description, event_type, start_date, end_date, currency, cover_image } = parse.data;
     const userId = req.user!.id;
     const tripId = uuidv4();
     const memberId = uuidv4();
     const now = new Date().toISOString();
 
     const insertTrip = db.prepare(`
-      INSERT INTO trips (id, owner_id, name, description, start_date, end_date, currency, cover_image, created_at, updated_at)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      INSERT INTO trips (id, owner_id, name, description, event_type, start_date, end_date, currency, cover_image, created_at, updated_at)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `);
 
     const insertMember = db.prepare(`
@@ -72,7 +73,7 @@ router.post('/', (req: AuthenticatedRequest, res: Response): void => {
     `);
 
     const transaction = db.transaction(() => {
-      insertTrip.run(tripId, userId, name.trim(), description || null, start_date || null, end_date || null, currency, cover_image || null, now, now);
+      insertTrip.run(tripId, userId, name.trim(), description || null, event_type || 'trip', start_date || null, end_date || null, currency, cover_image || null, now, now);
       insertMember.run(memberId, tripId, userId, now);
     });
 
@@ -83,6 +84,7 @@ router.post('/', (req: AuthenticatedRequest, res: Response): void => {
       owner_id: userId,
       name: name.trim(),
       description: description || null,
+      event_type: event_type || 'trip',
       start_date: start_date || null,
       end_date: end_date || null,
       currency,

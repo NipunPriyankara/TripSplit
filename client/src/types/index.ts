@@ -54,11 +54,14 @@ export interface AdminTrip {
   total_expense_cents: number;
 }
 
+export type EventType = 'trip' | 'wedding' | 'party' | 'music_event' | 'home_function' | 'other';
+
 export interface Trip {
   id: string;
   owner_id: string;
   name: string;
   description?: string | null;
+  event_type?: EventType | string | null;
   start_date?: string | null;
   end_date?: string | null;
   currency: string;

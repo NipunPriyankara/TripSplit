@@ -1,6 +1,6 @@
 {
   "name": "group-trip-expense-splitter",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": true,
   "description": "Full-Stack Group Trip Expense Splitter PWA with offline-first synchronization and minimized settlement engine",
   "scripts": {

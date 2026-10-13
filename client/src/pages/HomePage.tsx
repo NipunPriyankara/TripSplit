@@ -3,6 +3,7 @@ import { Plus, Users, Compass, Calendar, ArrowRight, TrendingUp, TrendingDown, C
 import { Trip } from '../types/index.js';
 import { api } from '../api/client.js';
 import { useAuth } from '../context/AuthContext.js';
+import { EVENT_TYPES } from '../config/eventTypes.js';
 
 interface HomePageProps {
   onSelectTrip: (tripId: string) => void;
@@ -132,10 +133,19 @@ export const HomePage: React.FC<HomePageProps> = ({ onSelectTrip, onCreateTrip }
               >
                 <div className="flex items-start justify-between mb-2">
                   <div>
-                    <div className="flex items-center space-x-2">
+                    <div className="flex items-center space-x-2 flex-wrap gap-y-1">
                       <h3 className="font-bold text-base text-slate-900 group-hover:text-brand-600 transition-colors">
                         {trip.name}
                       </h3>
+                      {(() => {
+                        const typeInfo = EVENT_TYPES.find(t => t.id === trip.event_type);
+                        if (!typeInfo) return null;
+                        return (
+                          <span className={`text-[10px] font-extrabold px-2 py-0.5 rounded-full ${typeInfo.badgeBg} ${typeInfo.badgeText}`}>
+                            {typeInfo.emoji} {typeInfo.title}
+                          </span>
+                        );
+                      })()}
                       <span
                         className={`text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full ${
                           trip.role === 'OWNER'

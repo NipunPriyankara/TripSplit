@@ -44,6 +44,16 @@ export function initDatabase() {
     }
   }
 
+  // Check and add event_type column to trips if missing
+  const tripCols = db.pragma('table_info(trips)') as { name: string }[];
+  if (!tripCols.some(c => c.name === 'event_type')) {
+    try {
+      db.exec("ALTER TABLE trips ADD COLUMN event_type TEXT DEFAULT 'trip';");
+    } catch (e) {
+      // already exists
+    }
+  }
+
   // Auto-promote first user to admin if no admin exists yet
   try {
     const adminCheck = db.prepare('SELECT COUNT(*) as count FROM users WHERE is_admin = 1').get() as { count: number };

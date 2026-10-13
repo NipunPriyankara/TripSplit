@@ -122,7 +122,7 @@ class ApiClient {
     }
   }
 
-  async createTrip(data: { name: string; description?: string; start_date?: string; end_date?: string; currency?: string }): Promise<{ trip: Trip }> {
+  async createTrip(data: { name: string; description?: string; event_type?: string; start_date?: string; end_date?: string; currency?: string }): Promise<{ trip: Trip }> {
     const res = await this.request<{ trip: Trip }>('/trips', {
       method: 'POST',
       body: JSON.stringify(data),
