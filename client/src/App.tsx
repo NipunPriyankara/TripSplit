@@ -21,23 +21,30 @@ export const App: React.FC = () => {
   const [joinToken, setJoinToken] = useState<string | null>(null);
   const [isAdminOpen, setIsAdminOpen] = useState<boolean>(false);
 
+  // Dynamic base path support (e.g. /TripSplit or empty)
+  const basePath = import.meta.env.BASE_URL.replace(/\/$/, '');
+
   // Check URL pathname for /join/:token or /trip/:id or /admin
   useEffect(() => {
     const path = window.location.pathname;
-    if (path.startsWith('/join/')) {
-      const token = path.replace('/join/', '').split('/')[0];
+    if (path.includes('/join/')) {
+      const parts = path.split('/join/');
+      const token = parts[1]?.split('/')[0];
       if (token) setJoinToken(token);
-    } else if (path.startsWith('/trip/')) {
-      const tripId = path.replace('/trip/', '').split('/')[0];
+    } else if (path.includes('/trip/')) {
+      const parts = path.split('/trip/');
+      const tripId = parts[1]?.split('/')[0];
       if (tripId) setCurrentTripId(tripId);
-    } else if (path.startsWith('/admin')) {
+    } else if (path.includes('/admin')) {
       setIsAdminOpen(true);
     }
   }, []);
 
   // Update browser URL state gracefully
   const updateUrl = (newPath: string) => {
-    window.history.pushState({}, '', newPath);
+    const cleanSubPath = newPath.startsWith('/') ? newPath : `/${newPath}`;
+    const fullPath = `${basePath}${cleanSubPath}`;
+    window.history.pushState({}, '', fullPath);
   };
 
   // Poll notifications count periodically if online and authenticated

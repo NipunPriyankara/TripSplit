@@ -1,7 +1,7 @@
 import { localDb } from '../db/db.js';
 import { User, Trip, TripMember, Expense, MemberBalance, SettlementTransaction, Settlement, NotificationItem, JoinRequest } from '../types/index.js';
 
-const API_BASE = '/api';
+const API_BASE = `${import.meta.env.BASE_URL.replace(/\/$/, '')}/api`;
 
 class ApiClient {
   private token: string | null = null;

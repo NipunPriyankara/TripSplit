@@ -51,8 +51,9 @@ export const InviteModal: React.FC<InviteModalProps> = ({ trip, onClose }) => {
     }
   };
 
+  const basePath = import.meta.env.BASE_URL.replace(/\/$/, '');
   const inviteUrl = token
-    ? `${window.location.origin}/join/${token}`
+    ? `${window.location.origin}${basePath}/join/${token}`
     : '';
 
   const shareText = `Hey! Join our private group trip "${trip.name}" on TripSplit to share and track expenses: ${inviteUrl}`;

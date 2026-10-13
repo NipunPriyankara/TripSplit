@@ -1,10 +1,10 @@
-const CACHE_NAME = 'tripsplit-v1';
+const CACHE_NAME = 'tripsplit-v1.1';
 const STATIC_ASSETS = [
-  '/',
-  '/index.html',
-  '/manifest.json',
-  '/icons/icon-192.svg',
-  '/icons/icon-512.svg'
+  '/TripSplit/',
+  '/TripSplit/index.html',
+  '/TripSplit/manifest.json',
+  '/TripSplit/icons/icon-192.svg',
+  '/TripSplit/icons/icon-512.svg'
 ];
 
 self.addEventListener('install', (event) => {
@@ -35,7 +35,7 @@ self.addEventListener('fetch', (event) => {
   const url = new URL(event.request.url);
 
   // Do not intercept non-GET or /api calls (client handles offline sync for API)
-  if (event.request.method !== 'GET' || url.pathname.startsWith('/api')) {
+  if (event.request.method !== 'GET' || url.pathname.includes('/api')) {
     return;
   }
 
@@ -58,7 +58,7 @@ self.addEventListener('fetch', (event) => {
         .catch(() => {
           // If navigation fails offline, serve root index.html
           if (event.request.mode === 'navigate') {
-            return caches.match('/index.html');
+            return caches.match('/TripSplit/index.html') || caches.match('/TripSplit/');
           }
         });
     })

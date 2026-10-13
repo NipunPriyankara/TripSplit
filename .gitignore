@@ -26,6 +26,7 @@ deploy*.py
 finish_deploy.py
 test_claim.py
 update_server.py
+*.nginx.conf
 *.tar.gz
 *.sql
 
